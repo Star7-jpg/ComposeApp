@@ -10,9 +10,9 @@ fun ComposeAppNavigationGraph() {
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = Routes.USER_INPUT_SCREEN) {
-        
+
         composable(Routes.USER_INPUT_SCREEN) {
-            UserInputScreen()
+            UserInputScreen(navController)
         }
 
         composable(Routes.WELCOME_SCREEN) {
