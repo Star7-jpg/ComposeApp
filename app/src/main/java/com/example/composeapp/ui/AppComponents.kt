@@ -4,9 +4,15 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CardElevation
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -46,7 +52,7 @@ fun TopBar(value: String) {
         
         Image(
             modifier = Modifier.size(80.dp),
-            painter = painterResource(R.drawable.android),
+            painter = painterResource(R.drawable.bird),
             contentDescription = "Native Mobile Bits"
         )
     }
@@ -105,4 +111,29 @@ fun TextFieldComponent(
             localFocusManager.clearFocus()
         }
     )
+}
+
+@Composable
+fun AnimalCard(image: Int) {
+    Card(
+        modifier = Modifier
+            .padding(24.dp)
+            .size(130.dp),
+        elevation = CardDefaults.cardElevation(4.dp)
+    ) {
+        Image(
+            modifier = Modifier
+                .padding(16.dp)
+                .wrapContentWidth()
+                .wrapContentHeight(),
+            painter = painterResource(id = image),
+            contentDescription = "Animal Image"
+        )
+    }
+}
+
+@Preview
+@Composable
+fun AnimalCardPreview() {
+    AnimalCard(R.drawable.cat)
 }
