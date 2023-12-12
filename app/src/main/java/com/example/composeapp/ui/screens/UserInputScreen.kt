@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.sp
 import com.example.composeapp.R
 import com.example.composeapp.data.UserDataUiEvents
 import com.example.composeapp.ui.AnimalCard
+import com.example.composeapp.ui.ButtonComponent
 import com.example.composeapp.ui.TextComponent
 import com.example.composeapp.ui.TextFieldComponent
 import com.example.composeapp.ui.TopBar
@@ -42,7 +43,7 @@ fun UserInputScreen(userInputViewModel: UseInputViewModel) {
             Spacer(modifier = Modifier.size(20.dp))
 
             TextComponent(
-                textValue = "¡Esta app mostrará una página detallada basada en una entrada proveída por ti!",
+                textValue = "¡Esta app mostrará una página detallada basada en lo que tú elijas!",
                 textSize = 18.sp
             )
 
@@ -65,8 +66,27 @@ fun UserInputScreen(userInputViewModel: UseInputViewModel) {
             Row(
                 modifier = Modifier.fillMaxWidth()
             ) {
-                AnimalCard(image = R.drawable.cat)
-                AnimalCard(image = R.drawable.dog)
+                AnimalCard(image = R.drawable.cat, animalSelected = {
+                    userInputViewModel.onEvent(
+                        UserDataUiEvents.AnimalSelected(it)
+                    )
+                }, selected = userInputViewModel.uiState.value.animalSelected == "Cat")
+                AnimalCard(image = R.drawable.dog, animalSelected = {
+                    userInputViewModel.onEvent(
+                        UserDataUiEvents.AnimalSelected(it)
+                    )
+                }, selected = userInputViewModel.uiState.value.animalSelected == "Dog")
+            }
+            
+            Spacer(modifier = Modifier.weight(1f))
+
+            if (userInputViewModel.isValidState()) {
+                ButtonComponent(
+                    goToDetailsScreen = {
+                        println("=============ComingHere")
+                        println("=============${ userInputViewModel.uiState.value.nameEntered } and ${ userInputViewModel.uiState.value.animalSelected }")
+                    }
+                )
             }
         }
     }
