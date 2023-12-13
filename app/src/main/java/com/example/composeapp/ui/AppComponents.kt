@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -28,7 +29,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shadow
 
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
@@ -40,6 +44,7 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.composeapp.R
+import com.example.composeapp.Utils
 
 
 @Composable
@@ -181,4 +186,56 @@ fun ButtonComponent(
             colorValue = Color.White
         )
     }
+}
+
+@Composable
+fun TextWithShadow(value: String) {
+    val shadowOffset = Offset(x = 1f, y = 2f)
+
+    Text(
+        text = value,
+        fontSize = 24.sp,
+        fontWeight = FontWeight.Light,
+        style = TextStyle(
+            shadow = Shadow(Utils.generateRandomColor(), shadowOffset, 2f)
+        )
+    )
+}
+
+@Composable
+fun FactComposable(value: String) {
+    Card(
+        modifier = Modifier
+            .padding(32.dp)
+            .fillMaxWidth(),
+        shape = RoundedCornerShape(8.dp),
+        elevation = CardDefaults.cardElevation(4.dp)
+    ) {
+        Column(
+            modifier = Modifier.padding(18.dp, 24.dp)
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.quote),
+                contentDescription = "Quote Image",
+                modifier = Modifier.rotate(180f)
+            )
+            
+            Spacer(modifier = Modifier.size(24.dp))
+            
+            TextWithShadow(value = value)
+
+            Spacer(modifier = Modifier.size(24.dp))
+
+            Image(
+                painter = painterResource(id = R.drawable.quote),
+                contentDescription = "Quote Image",
+            )
+        }
+    }
+}
+
+@Preview
+@Composable
+fun FactComposablePreview() {
+    FactComposable(value = "ABCDEFG")
 }

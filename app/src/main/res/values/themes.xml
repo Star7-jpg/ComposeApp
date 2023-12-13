@@ -2,4 +2,9 @@
 <resources>
 
     <style name="Theme.ComposeApp" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="SplashScreenTheme" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/white</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/flower</item>
+        <item name="postSplashScreenTheme">@style/Theme.ComposeApp</item>
+    </style>
 </resources>
